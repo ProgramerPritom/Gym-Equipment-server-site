@@ -24,18 +24,34 @@ app.use(express.json())
  async function run() {
     try {
           await client.connect();
-          const collection = client.db("GymEquipment").collection("Equipment");
+          const Equipmentcollection = client.db("GymEquipment").collection("Equipment");
+          
+
+          app.get('/equipments', async(req,res) =>{
+            const query = {};
+            const cursor = Equipmentcollection.find(query);
+            result = await cursor.toArray();
+            res.send(result);
+          })
+
+          app.get('/equipments/:id', async(req,res) => {
+            const id = req.params.id;
+            const query = {_id: ObjectId(id)};
+            const result = await Equipmentcollection.findOne(query);
+            res.send(result);
+          })
+
 
       
     } finally {
       
     }
-    run().catch(console.dir);
+    
 
 
 
  }
-
+ run().catch(console.dir);
 
  
 
