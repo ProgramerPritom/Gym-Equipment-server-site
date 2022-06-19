@@ -41,6 +41,12 @@ app.use(express.json())
             res.send(result);
           })
 
+          app.post('/equipments', async(req,res) =>{
+            const Equipment = req.body;
+            const result = await Equipmentcollection.insertOne(Equipment);
+            res.send(result);
+          })
+
 
       
     } finally {
