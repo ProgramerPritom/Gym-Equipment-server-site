@@ -55,6 +55,29 @@ app.use(express.json())
             res.send(result);
           })
 
+          // Delete Data
+          app.delete('/equipments/:id', async(req,res) =>{
+            const id = req.params.id;
+            const query = {_id: ObjectId(id)};
+            const result = await Equipmentcollection.deleteOne(query);
+            res.send(result);
+          })
+
+          // Update data
+          app.put('/equipments/:id', async (req,res) => {
+            const id = req.params.id;
+            const updateBody = req.body;
+            const filter = {_id : ObjectId(id)};
+            const options = { upsert: true};
+            const updateDoc = {
+              $set : {
+                quantity : updateBody.quantity,
+                description : updateBody.description
+              }
+            };
+            const result = await Equipmentcollection.updateOne(filter,updateDoc,options);
+            res.send(result);
+          })
 
       
     } finally {
