@@ -94,7 +94,7 @@ app.use(express.json())
 
 
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+  res.send('Workout Equipment Server site running...')
 })
 
 app.listen(port, () => {
